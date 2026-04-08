@@ -9,23 +9,19 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/marinsJava/dscommerce.git'
+                checkout scm
             }
         }
 
         stage('Build Maven') {
             steps {
-                dir('dscommerce') {
-                    sh 'mvn clean package -DskipTests'
-                }
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir('dscommerce') {
-                    sh 'docker build -t $DOCKER_IMAGE .'
-                }
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
 
@@ -49,7 +45,7 @@ pipeline {
 
         stage('Deploy Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/'
+                sh 'kubectl apply -R -f k8s/'
             }
         }
     }
