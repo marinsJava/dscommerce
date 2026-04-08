@@ -6,8 +6,8 @@ pipeline {
     }
 
     tools {
-            maven 'Maven'
-        }
+        maven 'Maven'
+    }
 
     stages {
 
@@ -49,7 +49,9 @@ pipeline {
 
         stage('Deploy Kubernetes') {
             steps {
-                sh 'kubectl apply -R -f k8s/'
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh 'kubectl apply -R -f k8s/'
+                }
             }
         }
     }
