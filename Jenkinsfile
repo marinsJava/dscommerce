@@ -5,6 +5,10 @@ pipeline {
         DOCKER_IMAGE = "gxnm/dscommerce:${BUILD_NUMBER}"
     }
 
+    tools {
+            maven 'Maven'
+        }
+
     stages {
 
         stage('Checkout') {
