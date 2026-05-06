@@ -10,14 +10,14 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="tb_order")
+@Table(name = "tb_order")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-      @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant moment;
     private OrderStatus status;
 
@@ -92,14 +92,16 @@ public class Order {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
+
         return Objects.equals(id, order.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return id != null ? id.hashCode() : 0;
     }
 }
